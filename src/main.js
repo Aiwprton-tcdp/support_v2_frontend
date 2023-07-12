@@ -12,7 +12,8 @@ import 'vue3-toastify/dist/index.css'
 import 'vue-multiselect/dist/vue-multiselect.css'
 import './style.css'
 
-axios.defaults.baseURL = 'https://aiwprtonshop.site/support/api/'
+axios.defaults.baseURL = 'https://support_api.aiwprton.sms19.ru/'
+// axios.defaults.baseURL = 'https://support_api.aiwprton.sms19.ru'
 
 axios.interceptors.request.use(config => {
   const token = Cookies.get('access')

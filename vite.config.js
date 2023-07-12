@@ -21,7 +21,7 @@ export default defineConfig({
   ],
   server: {
     hmr: {
-      host: 'https://aiwprtonshop.site/support',
+      host: 'https://support.aiwprton.sms19.ru/dist',
     },
   },
   resolve: {
@@ -33,8 +33,11 @@ export default defineConfig({
       { find: '@utils', replacement: generateAlias('/utils') },
     ],
   },
-  optimizeDeps: {
-    include: ['node_modules']
-  },
+  // optimizeDeps: {
+  //   include: [
+  //     'node_modules',
+  //     'src/**/*.vue',
+  //   ]
+  // },
   base: './',
 })

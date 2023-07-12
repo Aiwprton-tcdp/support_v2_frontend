@@ -80,10 +80,11 @@ export default {
       })
     },
     Patch(reason_id) {
-      if (StringVal(this.PatchingName)) return
+      const name = this.PatchingName.trim()
+      if (StringVal(name)) return
 
       this.ax.patch(`reasons/${reason_id}`, {
-        name: this.PatchingName,
+        name: name,
         weight: this.PatchingWeight,
         group_id: this.PatchingGroupId,
       }).then(r => {
@@ -110,13 +111,14 @@ export default {
       })
     },
     Search() {
-      if (this.search.length == 0) {
+      let data = this.search.trim()
+      if (data.length == 0) {
         this.ClearSearch()
         return
       }
 
-      const id = this.search.replaceAll(/[^0-9]+/g, '')
-      const text = this.search.replaceAll(/[^А-яA-z ]+/g, '').trim().toLowerCase()
+      const id = data.replaceAll(/[^0-9]+/g, '').trim()
+      const text = data.replaceAll(/[^А-яA-z ]+/g, '').trim().toLowerCase()
 
       this.reasons = this.AllReasons.filter(r => 
         id.length > 0 && r.id.toString().includes(id) ||
@@ -186,7 +188,7 @@ export default {
       <TableCell>{{ r.id }}</TableCell>
       <TableCell>
         <p v-if="PatchingId != r.id">{{ r.name }}</p>
-        <Input v-else v-model.trim="PatchingName" placeholder="Введите новое название" />
+        <Input v-else v-model="PatchingName" placeholder="Введите новое название" />
       </TableCell>
       <TableCell>
         <p v-if="PatchingId != r.id">{{ r.weight }}</p>

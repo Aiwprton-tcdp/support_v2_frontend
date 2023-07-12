@@ -134,13 +134,14 @@ export default {
       this.ClearSearch()
     },
     Search() {
-      if (this.search.length == 0) {
+      let data = this.search.trim()
+      if (data.length == 0) {
         this.ClearSearch()
         return
       }
 
-      const id = this.search.replaceAll(/[^0-9]+/g, '')
-      const text = this.search.replaceAll(/[^А-я ]+/g, '').trim().toLowerCase()
+      const id = data.replaceAll(/[^0-9]+/g, '').trim()
+      const text = data.replaceAll(/[^А-я ]+/g, '').trim().toLowerCase()
       const expression = u => 
         id.length > 0 && u.crm_id.toString().includes(id)
         || text.length > 0
@@ -165,7 +166,7 @@ export default {
 <div v-if="!only_with_roles && AllUsers.length > 0 || only_with_roles && AllUsersWithRoles.length > 0" class="space-y-4">
   <div class="flex flex-wrap space-x-4">
     <div class="flex flex-wrap space-x-3 w-1/2">
-      <Input @keyup.enter="Search()" v-model.trim="search" placeholder="Введите id, ФИО или должность" label="" class="flex-1">
+      <Input @keyup.enter="Search()" v-model="search" placeholder="Введите id, ФИО или должность" label="" class="flex-1">
         <template #prefix>
           <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </template>

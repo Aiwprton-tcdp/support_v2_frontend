@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory, createMemoryHistory } from 'vue-router'
 import { defineAsyncComponent } from 'vue'
 
 const routes = [{
@@ -45,7 +45,7 @@ const routes = [{
 }]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createMemoryHistory(),
   routes,
 })
 

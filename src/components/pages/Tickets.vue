@@ -83,13 +83,14 @@ export default {
     //   })
     // },
     Search() {
-      if (this.search.length == 0) {
+      let data = this.search.trim()
+      if (data.length == 0) {
         this.ClearSearch()
         return
       }
 
-      const id = this.search.replaceAll(/[^0-9]+/g, '')
-      const text = this.search.replaceAll(/[^А-яA-z ]+/g, '').toLowerCase()
+      const id = data.replaceAll(/[^0-9]+/g, '').trim()
+      const text = data.replaceAll(/[^А-яA-z ]+/g, '').trim().toLowerCase()
 
       this.tickets = this.AllTickets.filter(g => 
         id.length > 0 && g.id.toString().includes(id) ||
@@ -106,7 +107,7 @@ export default {
 
 <template>
 <div v-if="tickets.length > 0" class="flex flex-wrap space-x-3 w-1/2 mb-4">
-  <Input @keyup.enter="Search()" v-model.trim="search" placeholder="Введите id или название" label="" class="flex-1">
+  <Input @keyup.enter="Search()" v-model="search" placeholder="Введите id или название" label="" class="flex-1">
     <template #prefix>
       <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
     </template>
@@ -124,8 +125,8 @@ export default {
     <p>Нет данных</p>
     <Button @click="Get()" color="default">Перезагрузить</Button>
   </div>
-  <div v-else class="flex flex-wrap overflow-x-auto max-h-32 gap-3">
-    <div v-for="t in tickets" class="rounded-md border p-3">
+  <div v-else class="flex flex-col max-h-32 gap-3 overflow-y-auto overscroll-none">
+    <div v-for="t in tickets" class="rounded-md border p-3 cursor-pointer">
       {{ t.name }}
       <!-- {{ t.id }} -->
     </div>
